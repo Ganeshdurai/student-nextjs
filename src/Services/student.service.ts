@@ -13,14 +13,19 @@ export class StudentService {
 
     async add(studentsData){
         const createStudent = new this.student(studentsData);
-        await createStudent.save();
+        return await createStudent.save();
+    }
+
+    async findbyId(id) {
+        return await this.student.findById(id).exec();
+        
     }
 
     async update(student){
-        await this.student.updateOne({email: student.email}, student)
+        return await this.student.updateOne({email: student.email}, student)
     }
 
     async delete(id){
-        await this.student.deleteOne({_id: id})
+        return await this.student.deleteOne({_id: id})
     }
 }

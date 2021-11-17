@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Delete, Param } from "@nestjs/common";
+import { Controller, Get, Post, Body, Delete, Param, HttpStatus, Res } from "@nestjs/common";
+import { response } from "express";
 
 import { StudentService } from "src/Services/student.service";
 
@@ -12,17 +13,28 @@ export class StudentsController {
         return await this.service.getAll();
     }
 
+    @Get('/:id')
+    async findById(@Res() response, @Param('id') id) {
+        const student = await this.service.findbyId(id);
+        return response.status(HttpStatus.OK).json({
+            student
+        })
+    }
+
     @Post('add')
-    async add(@Body() studentData: any) {
-        console.log(studentData)
-        await this.service.add(studentData);
+    async add(@Res() response, @Body() studentData: any) {
+        const student = await this.service.add(studentData);
+        return response.status(HttpStatus.OK).json({ student })
+
     }
     @Post('update')
-    async update(@Body() studentData: any) {
-        await this.service.update(studentData)
+    async update(@Res() response, @Body() studentData: any) {
+        const student = await this.service.update(studentData)
+        return response.status(HttpStatus.OK).json({ student })
     }
     @Delete('delete/:id')
-    async delete(@Param('id') id){
-        await this.service.delete(id)
+    async delete(@Res() response, @Param('id') id) {
+        const student = await this.service.delete(id)
+        return response.status(HttpStatus.OK).json({ student })
     }
 }
