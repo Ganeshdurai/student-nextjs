@@ -8,6 +8,7 @@ export class StudentsController {
     constructor(private service: StudentService) { }
     @Get('all')
     async GetAll() {
+        console.log("check")
         return await this.service.getAll();
     }
 
