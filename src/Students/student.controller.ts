@@ -1,6 +1,4 @@
 import { Controller, Get, Post, Body, Delete, Param, HttpStatus, Res } from "@nestjs/common";
-import { response } from "express";
-
 import { StudentService } from "src/Services/student.service";
 
 
@@ -29,8 +27,8 @@ export class StudentsController {
     }
     @Post('update')
     async update(@Res() response, @Body() studentData: any) {
-        const student = await this.service.update(studentData)
-        return response.status(HttpStatus.OK).json({ student })
+        await this.service.update(studentData)
+        return response.status(HttpStatus.OK).json({ studentData })
     }
     @Delete('delete/:id')
     async delete(@Res() response, @Param('id') id) {
