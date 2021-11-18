@@ -22,7 +22,7 @@ export class StudentService {
     }
 
     async update(student){
-        return await this.student.updateOne({email: student.email}, student)
+        return await this.student.updateOne({_id: student._id}, student)
     }
 
     async delete(id){
